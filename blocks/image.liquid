@@ -9,10 +9,16 @@
     margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem;
   "
 >
-  {% if block.settings.image != blank %}
+  {% liquid
+    assign display_image = block.settings.image
+    if display_image == blank and request.page_type == 'product' and product != blank
+      assign display_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image
+    endif
+  %}
+  {% if display_image != blank %}
     <div
       class="media media--transparent ratio"
-      style="--ratio-percent: {{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100 }}%"
+      style="--ratio-percent: {{ 1 | divided_by: display_image.aspect_ratio | times: 100 }}%"
     >
       {% assign width_decimal = block.settings.width | divided_by: 100.0 %}
       {% assign desktop_width = 12 %}
@@ -22,7 +28,7 @@
         (min-width: 750px) calc((100vw - 30px) / 12 * {{ desktop_width }} * {{ width_decimal }}), calc((100vw - 30px) / 4 * {{ mobile_width }} * {{ width_decimal }})
       {%- endcapture -%}
       {{
-        block.settings.image
+        display_image
         | image_url: width: 1500
         | image_tag: loading: 'lazy', sizes: sizes, widths: '165, 360, 535, 750, 1070, 1250, 1500'
       }}

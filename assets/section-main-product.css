@@ -461,15 +461,11 @@ fieldset.product-form__input .form__label {
 .product-form__input:not(.product-form__input--quantity-breaks)
   input[type="radio"]
   + label {
-  --color-foreground: var(--accent-color);
   border: var(--variant-pills-border-width) solid
-    rgba(var(--color-foreground), var(--variant-pills-border-opacity));
-  background-color: rgba(
-    var(--color-foreground),
-    var(--variant-pills-inactive-overlay-opacity)
-  );
+    rgba(var(--color-base-outline-button-labels), 0.18);
+  background-color: rgba(var(--color-base-outline-button-labels), 0.04);
   border-radius: var(--variant-pills-radius);
-  color: rgb(var(--color-foreground));
+  color: rgb(var(--color-base-text));
   display: inline-block;
   margin: 0.7rem 0.5rem 0.2rem 0;
   padding: var(--variant-pills-padding-y) var(--variant-pills-padding-x);
@@ -477,7 +473,11 @@ fieldset.product-form__input .form__label {
   letter-spacing: 0.1rem;
   line-height: 1;
   text-align: center;
-  transition: border var(--duration-short) ease;
+  transition:
+    border-color var(--duration-short) ease,
+    background-color var(--duration-short) ease,
+    color var(--duration-short) ease,
+    box-shadow var(--duration-short) ease;
   cursor: pointer;
   position: relative;
 }
@@ -505,13 +505,21 @@ fieldset.product-form__input .form__label {
 .product-form__input:not(.product-form__input--quantity-breaks)
   input[type="radio"]
   + label:hover {
-  border-color: rgb(var(--color-foreground));
+  border-color: rgba(var(--color-base-outline-button-labels), 0.4);
+  background-color: rgba(var(--color-base-outline-button-labels), 0.07);
 }
 .product-form__input:not(.product-form__input--quantity-breaks)
   input[type="radio"]:checked
   + label {
-  background-color: rgb(var(--color-foreground));
-  color: rgb(var(--color-background));
+  border-color: rgb(var(--color-base-outline-button-labels));
+  background: linear-gradient(
+    180deg,
+    rgba(var(--color-base-outline-button-labels), 0.16) 0%,
+    rgba(var(--color-base-outline-button-labels), 0.08) 100%
+  );
+  color: rgb(var(--color-base-text));
+  box-shadow: 0 0.8rem 1.8rem
+    rgba(var(--color-base-outline-button-labels), 0.1);
 }
 .product-form__input:not(.product-form__input--quantity-breaks)
   input[type="radio"]:not(.disabled)
@@ -537,8 +545,9 @@ fieldset.product-form__input .form__label {
 .product-form__input:not(.product-form__input--quantity-breaks)
   input[type="radio"].disabled
   + label {
-  border-color: rgba(var(--color-foreground), 0.1);
-  color: rgba(var(--color-foreground), 0.6);
+  border-color: rgba(var(--color-base-outline-button-labels), 0.1);
+  background-color: rgba(var(--color-base-outline-button-labels), 0.03);
+  color: rgba(var(--color-base-text), 0.4);
   text-decoration: line-through;
 }
 .product-form__input:not(.product-form__input--quantity-breaks)
@@ -547,7 +556,10 @@ fieldset.product-form__input .form__label {
 .product-form__input:not(.product-form__input--quantity-breaks)
   input[type="radio"]:disabled:checked
   + label {
-  color: rgba(var(--color-background), 0.6);
+  border-color: rgba(var(--color-base-outline-button-labels), 0.16);
+  background: rgba(var(--color-base-outline-button-labels), 0.07);
+  color: rgba(var(--color-base-text), 0.4);
+  box-shadow: none;
 }
 .product-form__input:not(.product-form__input--quantity-breaks)
   input[type="radio"]:focus-visible
@@ -1956,4 +1968,3 @@ textarea {
 }
 
 /* Custom product field input */
-
